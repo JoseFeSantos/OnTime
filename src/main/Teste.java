@@ -2,18 +2,15 @@ package main;
 
 import controller.CategoriaController;
 import controller.CidadeController;
-import controller.ClienteController;
 import controller.EnderecoController;
 import controller.EstadoController;
 import model.Categoria;
 import model.Cidade;
-import model.Cliente;
 import model.Endereco;
 import model.Estado;
 
 public class Teste {
     public static void main(String[] args) {
-    	
         // Inserir todos os estados
         EstadoController estadoController = new EstadoController();
         Estado[] estados = {
@@ -80,21 +77,46 @@ public class Teste {
             new Cidade(27, "Palmas", estados[26])
         };
         cidadeController.inserirTodasCapitais(capitais);
-
-        // Inserir um endereço
-        EnderecoController enderecoController = new EnderecoController();
-        Cidade goiania = new Cidade(3, "Goiânia", estados[8]);
-        Endereco endereco = new Endereco(1, "Lago Azul", 202, "Casa verde com marrom", "Parque Tremendão", 74394230, goiania);
-        enderecoController.inserirEndereco(endereco);
-
-        // Inserir uma categoria
-        Categoria categoria = new Categoria(1, "Tecnologia", "Ativo", "url_da_imagem");
+        
+        // Inserir todas as categorias
         CategoriaController categoriaController = new CategoriaController();
-        categoriaController.inserirCategoria(categoria);
+        Categoria[] categorias = {
+            new Categoria(1, "Limpeza", "Ativo", "url_da_imagem"),
+            new Categoria(2, "Passadeira", "Ativo", "url_da_imagem"),
+            new Categoria(3, "Construção", "Ativo", "url_da_imagem"),
+            new Categoria(4, "Eletricista", "Ativo", "url_da_imagem"),
+            new Categoria(5, "Saúde", "Ativo", "url_da_imagem"),
+            new Categoria(6, "Educação", "Ativo", "url_da_imagem"),
+            new Categoria(7, "Tecnologia", "Ativo", "url_da_imagem"),
+            new Categoria(8, "Transporte", "Ativo", "url_da_imagem"),
+            new Categoria(9, "Alimentação", "Ativo", "url_da_imagem"),
+            new Categoria(10, "Beleza e Estética", "Ativo", "url_da_imagem"),
+            new Categoria(11, "Manutenção e Reparos", "Ativo", "url_da_imagem"),
+            new Categoria(12, "Lazer e Entretenimento", "Ativo", "url_da_imagem"),
+            new Categoria(13, "Imobiliário", "Ativo", "url_da_imagem"),
+            new Categoria(14, "Consultoria", "Ativo", "url_da_imagem"),
+            new Categoria(15, "Segurança", "Ativo", "url_da_imagem"),
+            new Categoria(16, "Marketing", "Ativo", "url_da_imagem"),
+            new Categoria(17, "Eventos", "Ativo", "url_da_imagem"),
+            new Categoria(18, "Turismo", "Ativo", "url_da_imagem"),
+            new Categoria(19, "Finanças", "Ativo", "url_da_imagem"),
+            new Categoria(20, "Jurídico", "Ativo", "url_da_imagem")
+        };
+        categoriaController.inserirTodasCategorias(categorias);
 
-        // Inserir um cliente
-        Cliente cliente = new Cliente(1, "José Santos", "000.000.000-00", "Masculino", "Ativo");
-        ClienteController clienteController = new ClienteController();
-        clienteController.inserirCliente(cliente);
+        // Inserir todos os endereços
+        EnderecoController enderecoController = new EnderecoController();
+        Endereco[] enderecos = {
+            new Endereco(1, "Lago Azul", 202, "Casa verde com marrom", "Parque Tremendão", 74394230, capitais[8]),
+            new Endereco(2, "Rua das Flores", 123, "Apto 101", "Jardim Primavera", 12345678, capitais[0]),
+            new Endereco(3, "Avenida Central", 456, "Bloco B", "Centro", 87654321, capitais[1]),
+            new Endereco(4, "Rua do Sol", 789, "Casa 2", "Vila Nova", 23456789, capitais[2]),
+            new Endereco(5, "Praça da Liberdade", 101, "Cobertura", "Liberdade", 34567890, capitais[3]),
+            new Endereco(6, "Rua das Palmeiras", 202, "Fundos", "Palmeiras", 45678901, capitais[4]),
+            new Endereco(7, "Avenida Paulista", 303, "Sala 5", "Bela Vista", 56789012, capitais[5]),
+            new Endereco(8, "Rua das Acácias", 404, "Casa 3", "Acácias", 67890123, capitais[6]),
+            new Endereco(9, "Avenida das Nações", 505, "Apto 202", "Nações Unidas", 78901234, capitais[7])
+        };
+        enderecoController.inserirTodosEnderecos(enderecos);
     }
 }
