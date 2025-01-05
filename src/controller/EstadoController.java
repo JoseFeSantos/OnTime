@@ -3,7 +3,6 @@ package controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import model.Estado;
 
 public class EstadoController extends Base {
@@ -15,6 +14,21 @@ public class EstadoController extends Base {
             insert("TBESTADO", columns, values);
         }
     }
+    
+    public void atualizarEstado(Estado estado) {
+        if (estadoExiste(estado.getId())) {
+            String[] columns = {"IDESTADO", "NOMEESTADO", "UF"};
+            Object[] values = {estado.getId(), estado.getNome(), estado.getSigla()};
+            
+            update("TBESTADO", "IDESTADO", estado.getId(), columns, values);
+        }
+    }
+
+    public void deletarEstado(int idEstado) {
+        if (estadoExiste(idEstado)) {
+            delete("TBESTADO", "IDESTADO", idEstado);
+        }
+    } 
 
     public void inserirTodosEstados(Estado[] estados) {
         for (Estado estado : estados) {

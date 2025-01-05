@@ -3,7 +3,6 @@ package controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import model.Cidade;
 
 public class CidadeController extends Base {
@@ -15,7 +14,22 @@ public class CidadeController extends Base {
             insert("TBCIDADE", columns, values);
         }
     }
+    
+    public void atualizarCidade(Cidade cidade) {
+        if (cidadeExiste(cidade.getId())) {
+            String[] columns = {"IDCIDADE", "NOMECIDADE", "IDCIDESTADO"};
+            Object[] values = {cidade.getId(), cidade.getNome(), cidade.getEstado()};
+            
+            update("TBCIDADE", "IDCIDADE", cidade.getId(), columns, values);
+        }
+    }
 
+    public void deletarCidade(int idCidade) {
+        if (cidadeExiste(idCidade)) {
+            delete("TBCIDADE", "IDCIDADE", idCidade);
+        }
+    }  
+    
     public void inserirTodasCapitais(Cidade[] cidades) {
         for (Cidade cidade : cidades) {
             inserirCidade(cidade);

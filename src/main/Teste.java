@@ -121,7 +121,7 @@ public class Teste {
         
         // Atualizar Categoria Apenas Dados Informados
         Categoria categoriaAtualizada = new Categoria(1, "Assintencia Técnica", "", "");
-        categoriaController.atualizarCategoriaParcail(categoriaAtualizada);
+        categoriaController.atualizarCategoria(categoriaAtualizada);
         
 //        Atualizar Categoria Todos os dados
 //        Categoria categoriaAtualizadaTotal = new Categoria(1, "Assintencia Técnica", "", "");

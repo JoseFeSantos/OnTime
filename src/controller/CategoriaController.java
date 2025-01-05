@@ -3,7 +3,6 @@ package controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import model.Categoria;
 
 public class CategoriaController extends Base {
@@ -20,17 +19,8 @@ public class CategoriaController extends Base {
         if (categoraExiste(categoria.getId())) {
             String[] columns = {"NOME", "STATUS", "URLIMG"};
             Object[] values = {categoria.getNome(), categoria.getStatus(), categoria.getImgUrl()};
-
-            update("TBCATEGORIA", "ID", categoria.getId(), columns, values);
-        }
-    }
-    
-    public void atualizarCategoriaParcail(Categoria categoria) {
-        if (categoraExiste(categoria.getId())) {
-            String[] columns = {"NOME", "STATUS", "URLIMG"};
-            Object[] values = {categoria.getNome(), categoria.getStatus(), categoria.getImgUrl()};
             
-            updatePartial("TBCATEGORIA", "ID", categoria.getId(), columns, values);
+            update("TBCATEGORIA", "ID", categoria.getId(), columns, values);
         }
     }
 

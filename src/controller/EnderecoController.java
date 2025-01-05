@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import conexao.ConexaoJDBC;
 import model.Endereco;
 
@@ -15,6 +14,21 @@ public class EnderecoController extends Base {
             Object[] values = {endereco.getId(), endereco.getLogradouro(), endereco.getNumero(), endereco.getComplemento(), endereco.getBairro(), endereco.getCep(), endereco.getCidade().getId()};
 
             insert("TBENDERECO", columns, values);
+        }
+    }
+    
+    public void atualizarEndereco(Endereco endereco) {
+        if (enderecoExiste(endereco.getId())) {
+            String[] columns = {"IDENDERECO", "LOGRADOURO", "NUMERO", "COMPLEMENTO", "BAIRRO", "CEP", "IDENDECIDADE"};
+            Object[] values = {endereco.getId(), endereco.getLogradouro(), endereco.getNumero(), endereco.getComplemento(), endereco.getBairro(), endereco.getCep(), endereco.getCidade()};
+            
+            update("TBENDERECO", "IDENDERECO", endereco.getId(), columns, values);
+        }
+    }
+
+    public void deletarEndereco(int idEndereco) {
+        if (enderecoExiste(idEndereco)) {
+            delete("TBENDERECO", "IDENDERECO", idEndereco);
         }
     }
 

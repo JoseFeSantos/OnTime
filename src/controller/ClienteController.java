@@ -1,36 +1,52 @@
 package controller;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import conexao.ConexaoJDBC;
 import model.Cliente;
 
-public class ClienteController {
+public class ClienteController extends Base {
     public void inserirCliente(Cliente cliente) {
-        String sql = "INSERT INTO TBCLIENTE (IDCLIENTE, NOMECLIENTE, CPF, SEXO, CLIDESCSTATUS) VALUES (?, ?, ?, ?, ?)";
+        if (!clienteExiste(cliente.getId())) {
+        String[] columns = {"IDCLIENTE", "NOMECLIENTE", "CPF", "SEXO", "CLIDESCSTATUS"};
+        Object[] values = {cliente.getId(), cliente.getNomeCompleto(), cliente.getCpf(), cliente.getSexo(),cliente.getStatus()};
 
-        try (Connection connection = ConexaoJDBC.getConnection();
-             PreparedStatement cli = connection.prepareStatement(sql)) {
+        insert("TBCLIENTE", columns, values);
+        }
+    }   
+    
+    public void atualizarCliente(Cliente cliente) {
+        if (clienteExiste(cliente.getId())){
+            String[] columns = {"IDCLIENTE", "NOMECLIENTE", "CPF", "SEXO", "CLIDESCSTATUS"};
+            Object[] values = {cliente.getId(), cliente.getNomeCompleto(), cliente.getCpf(), cliente.getSexo(),cliente.getStatus()};
+            
+            update("TBCLIENTE", "IDCLIENTE", cliente.getId(), columns, values);
+        }
+    }
 
-        	cli.setInt(1, cliente.getId());
-            cli.setString(2, cliente.getNomeCompleto());
-            cli.setString(3, cliente.getCpf());
-//            cli.setString(, fotoPerfil());
-            cli.setString(4, cliente.getSexo());
-//            cli.setString(5, cliente.Endereco());
-//            cli.setString(5, cliente.getEndereco().getEnderecoCompleto());
-            cli.setString(5, cliente.getStatus());
+    public void deletarCliente(int idCliente) {
+        if (clienteExiste(idCliente)) {
+            delete("TBCLIENTE", "IDCLIENTE", idCliente);
+        }
+    }
+    
+    public void inserirTodosClientes(Cliente[] clientes) {
+        for (Cliente cliente: clientes) {
+            inserirCliente(cliente);
+        }
+    }
 
-            int affectedRows = cli.executeUpdate();
-            if (affectedRows > 0) {
-                System.out.println("Cliente inserido com sucesso!");
-            } else {
-                System.out.println("Falha ao inserir o Cliente.");
+    private boolean clienteExiste(int idCliente) {
+        String sql = "SELECT COUNT(*) FROM TBCLIENTE WHERE IDCLIENTE = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idCliente);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            System.out.println("Erro ao verificar cliente: " + e.getMessage());
         }
+        return false;
     }
 }
