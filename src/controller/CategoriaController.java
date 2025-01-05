@@ -16,6 +16,30 @@ public class CategoriaController extends Base {
         }
     }
     
+    public void atualizarCategoria(Categoria categoria) {
+        if (categoraExiste(categoria.getId())) {
+            String[] columns = {"NOME", "STATUS", "URLIMG"};
+            Object[] values = {categoria.getNome(), categoria.getStatus(), categoria.getImgUrl()};
+
+            update("TBCATEGORIA", "ID", categoria.getId(), columns, values);
+        }
+    }
+    
+    public void atualizarCategoriaParcail(Categoria categoria) {
+        if (categoraExiste(categoria.getId())) {
+            String[] columns = {"NOME", "STATUS", "URLIMG"};
+            Object[] values = {categoria.getNome(), categoria.getStatus(), categoria.getImgUrl()};
+            
+            updatePartial("TBCATEGORIA", "ID", categoria.getId(), columns, values);
+        }
+    }
+
+    public void deletarCategoria(int idCategoria) {
+        if (categoraExiste(idCategoria)) {
+            delete("TBCATEGORIA", "ID", idCategoria);
+        }
+    }
+    
     public void inserirTodasCategorias(Categoria[] categorias) {
         for (Categoria categoria: categorias) {
             inserirCategoria(categoria);

@@ -64,4 +64,29 @@ public abstract class Base {
             System.out.println("Erro ao atualizar dados: " + e.getMessage());
         }
     }
+    
+    public void updatePartial(String tableName, String idColumn, Object idValue, String[] columns, Object[] values) {
+        StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
+        for (int i = 0; i < columns.length; i++) {
+            if (values[i] != null && !values[i].toString().isEmpty()) {
+                sql.append(columns[i]).append(" = ?, ");
+            }
+        }
+        sql.delete(sql.length() - 2, sql.length()); // Remove a última vírgula e espaço
+        sql.append(" WHERE " + idColumn + " = ?");
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
+            int index = 1;
+            for (int i = 0; i < values.length; i++) {
+                if (values[i] != null && !values[i].toString().isEmpty()) {
+                    stmt.setObject(index++, values[i]);
+                }
+            }
+            stmt.setObject(index, idValue);
+            stmt.executeUpdate();
+            System.out.println("Atualização parcial realizada com sucesso!");
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar dados: " + e.getMessage());
+        }
+    }
 }

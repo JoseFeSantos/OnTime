@@ -100,7 +100,7 @@ public class Teste {
             new Categoria(17, "Eventos", "Ativo", "url_da_imagem"),
             new Categoria(18, "Turismo", "Ativo", "url_da_imagem"),
             new Categoria(19, "Finanças", "Ativo", "url_da_imagem"),
-            new Categoria(20, "Jurídico", "Ativo", "url_da_imagem")
+            new Categoria(20, "Jurídico", "Ativo", "url_da_imagem") 
         };
         categoriaController.inserirTodasCategorias(categorias);
 
@@ -118,5 +118,17 @@ public class Teste {
             new Endereco(9, "Avenida das Nações", 505, "Apto 202", "Nações Unidas", 78901234, capitais[7])
         };
         enderecoController.inserirTodosEnderecos(enderecos);
+        
+        // Atualizar Categoria Apenas Dados Informados
+        Categoria categoriaAtualizada = new Categoria(1, "Assintencia Técnica", "", "");
+        categoriaController.atualizarCategoriaParcail(categoriaAtualizada);
+        
+//        Atualizar Categoria Todos os dados
+//        Categoria categoriaAtualizadaTotal = new Categoria(1, "Assintencia Técnica", "", "");
+//        categoriaController.atualizarCategoria(categoriaAtualizadaTotal);
+        
+        // Deletar uma categoria
+//        categoriaController.deletarCategoria(20);
     }
+
 }
